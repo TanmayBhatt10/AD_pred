@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Click Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Ad Click Prediction System</h1>
+            <p>Predict ad click probability using machine learning</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Prediction Panel -->
+            <div class="prediction-panel">
+                <h2>User Demographics</h2>
+                <form id="predictionForm">
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input type="number" id="age" name="age" min="18" max="65" value="25" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="daily_time_spent">Daily Time Spent on Site (minutes):</label>
+                        <input type="number" id="daily_time_spent" name="daily_time_spent" min="10" max="120" value="65" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area_income">Area Income ($):</label>
+                        <input type="number" id="area_income" name="area_income" min="25000" max="100000" value="55000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="daily_internet_usage">Daily Internet Usage (minutes):</label>
+                        <input type="number" id="daily_internet_usage" name="daily_internet_usage" min="30" max="300" value="180" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="device_type">Device Type:</label>
+                        <select id="device_type" name="device_type" required>
+                            <option value="">Select Device</option>
+                            <option value="Mobile">Mobile</option>
+                            <option value="Desktop">Desktop</option>
+                            <option value="Tablet">Tablet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ad_topic">Ad Topic:</label>
+                        <select id="ad_topic" name="ad_topic" required>
+                            <option value="">Select Topic</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Fashion">Fashion</option>
+                            <option value="Health">Health</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Food">Food</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="predict-btn">Predict Click Probability</button>
+                </form>
+
+                <div id="predictionResult" class="result-card" style="display: none;">
+                    <h3>Prediction Results</h3>
+                    <div class="prediction-display">
+                        <div class="probability-circle">
+                            <div class="probability-text">
+                                <span id="probabilityValue">0%</span>
+                                <small>Click Probability</small>
+                            </div>
+                        </div>
+                        <div class="prediction-details">
+                            <div class="detail-item">
+                                <strong>Prediction:</strong> <span id="predictionLabel">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Confidence:</strong> <span id="confidenceValue">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Panel -->
+            <div class="analytics-panel">
+                <h2>Analytics Dashboard</h2>
+                
+                <div class="analytics-controls">
+                    <button id="trainModelBtn" class="train-btn">Train Model</button>
+                    <button id="loadAnalyticsBtn" class="analytics-btn">Load Analytics</button>
+                </div>
+
+                <div id="modelTrainingResult" class="result-card" style="display: none;">
+                    <h3>Model Training Results</h3>
+                    <div class="training-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Accuracy:</span>
+                            <span id="modelAccuracy" class="metric-value">-</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Precision:</span>
+                            <span id="modelPrecision" class="metric-value">-</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Recall:</span>
+                            <span id="modelRecall" class="metric-value">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="clickRatesChart"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="deviceChart"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="trendsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 Ad Click Prediction System. Built with Flask & Machine Learning.</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
